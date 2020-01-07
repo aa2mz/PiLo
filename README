@@ -1,9 +1,11 @@
-To use:
-Connect a low-pass filter to GPIO pin 4 and ground on your Raspberry Pi.  Connect an antenna to the LPF.
+Use RasPi to generate clock signal (for a local oscillator)
 
 Compile by doing:
-gcc -o wspr-pi wspr.c
+make pilo
 
-Usage: wspr-pi <callsign> <locator> <power in dBm> <frequency in Hz>
-        e.g.: wspr-pi MD1CLV IO74 30 137500
+Usage: pilo <frequency in Hz>
+        e.g.: sudo ./pilo 7074000
+Enter a new frequency (in Hertz) on STDIN to change the frequency.        
+The clock will run until an EOF (or ^D is typed on the keyboard.)
+        
 
