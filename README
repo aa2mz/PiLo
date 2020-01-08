@@ -1,4 +1,16 @@
-Use RasPi to generate clock signal (for a local oscillator)
+Use RasPi Zero to generate clock signal (for a local oscillator)
+
+I pulled all the WSPR code from an old version of Wsprrypi to create
+an application that only generates a fixed frequency with no modulation.
+
+Why, Ed, Why?
+
+New versions of Wsprrypi use the PWM module and that means that it 
+is not available for audio out to mix with a local oscillator. 
+Using this module, built-in audio, also available on the Pi Zero header,
+can be mixed to provide modulated RF. Some assembly required. Combining
+a PCM ADC on the receive side will implement a complete low part-count 
+transceiver.
 
 Compile by doing:
 make pilo
