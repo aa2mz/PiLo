@@ -207,7 +207,7 @@ void calculate_tuning_info(tuning_data* tuning_info)
 
 int main(int argc, char *argv[])
 {
-  char wspr_message[20];          // user beacon message to encode
+  char request[20];          // user beacon message to encode
 
   tuning_data tuning_info ;
   int i;
@@ -231,13 +231,14 @@ int main(int argc, char *argv[])
   printf("Transmitting... ");
   txon();
   
-  if ( centre_freq != 0 ) {
-    do {
-      tuning_info.requested = centre_freq;
-      calculate_tuning_info(&tuning_info);
-      printf("Actual freq=%fHz\n",  tuning_info.actual);
-      setfreq(tuning_info.tuning_word);
-    } while ( getchar() != EOF ) ;
+  while ( centre_freq != 0 ) {
+    tuning_info.requested = centre_freq;
+    calculate_tuning_info(&tuning_info);
+    printf("Actual freq=%fHz\n",  tuning_info.actual);
+    setfreq(tuning_info.tuning_word);
+    if (fgets(request,sizeof(request),stdin) == 0)
+      break;
+    centre_freq = strtod(request,0);
   }
   txoff();
   printf("Done!\n");
